@@ -1,0 +1,63 @@
+include helpers/bemto
+include helpers/variables
+include helpers/mixins
+
+-bemto_settings_prefix = 'b-'
+
+doctype html
+html
+	head
+		title main
+		include inc/head
+	body(class="p-main")
+		include partials/header
+		
+		.b-common-wrap
+			div(style="display: none;")
+				+b('').info
+					+e('').tabs
+						+e('').tab-wrap
+							+e('a')(href="#").tab._active One
+						+e('').tab-wrap
+							+e('a')(href="#").tab Two
+						+e('').tab-wrap
+							+e('a')(href="#").tab Three
+						+e('').tab-wrap
+							+e('a')(href="#").tab Four
+					+e('').content
+						+e('').content-item._active
+							p 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus libero temporibus eligendi ab quisquam autem quam optio, iusto sed natus doloremque rerum magnam possimus assumenda culpa voluptates. Aliquam, illo, natus.
+						+e('').content-item
+							p 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus libero temporibus eligendi ab quisquam autem quam optio, iusto sed natus doloremque rerum magnam possimus assumenda culpa voluptates. Aliquam, illo, natus.
+						+e('').content-item
+							p 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus libero temporibus eligendi ab quisquam autem quam optio, iusto sed natus doloremque rerum magnam possimus assumenda culpa voluptates. Aliquam, illo, natus.
+						+e('').content-item
+							p 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus libero temporibus eligendi ab quisquam autem quam optio, iusto sed natus doloremque rerum magnam possimus assumenda culpa voluptates. Aliquam, illo, natus.
+				+b('').info
+					+e('').tabs
+						+e('a')(href="#").tab._active One
+						+e('a')(href="#").tab Two
+						+e('a')(href="#").tab Three
+						+e('a')(href="#").tab Four
+					+e('').content
+						+e('').content-item._active
+							p 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus libero temporibus eligendi ab quisquam autem quam optio, iusto sed natus doloremque rerum magnam possimus assumenda culpa voluptates. Aliquam, illo, natus.
+						+e('').content-item
+							p 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus libero temporibus eligendi ab quisquam autem quam optio, iusto sed natus doloremque rerum magnam possimus assumenda culpa voluptates. Aliquam, illo, natus.
+						+e('').content-item
+							p 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus libero temporibus eligendi ab quisquam autem quam optio, iusto sed natus doloremque rerum magnam possimus assumenda culpa voluptates. Aliquam, illo, natus.
+						+e('').content-item
+							p 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus libero temporibus eligendi ab quisquam autem quam optio, iusto sed natus doloremque rerum magnam possimus assumenda culpa voluptates. Aliquam, illo, natus.
+				a(href="#").h-popup-link(data-id="#test") click
+				.h-popups
+					.h-popup#test
+						.h-popup__inside 123
+			
+			+b('').swiper
+				each item in (new Array(10))
+					+e('').item
+						+e('img')(src="http://placehold.it/500x300").img
+
+		include partials/footer
+		include inc/vendor-scripts
+		script(src="js/client.min.js")

@@ -1,0 +1,252 @@
+$rootFontVal = 16
+$rootFontSize = $rootFontVal px
+
+$orange = #f5b200
+$beige = #ead395
+
+$max_xs = '(max-width 768px)'
+$max_sm = '(max-width 992px)'
+$max_md = '(max-width 1200px)'
+$max_lg = '(max-width 1500px)'
+
+$min_sm = '(min-width 769px)'
+$min_md = '(min-width 993px)'
+$min_lg = '(min-width 1201px)'
+
+
+font-size(value, r = true)
+    font-size value px
+    if r
+        font-size (value / $rootFontVal) rem
+
+lineHeight(value)
+    line-height (value / $rootFontVal)
+
+getRem(value)
+    if (value == 'auto')
+        return auto
+    return (value / $rootFontVal) rem
+
+toRem(prop, value)
+    {prop} value px
+    {prop} (value / $rootFontVal) rem
+
+tr(type, time)
+    transition type time ease-in-out
+
+padding()
+    offset('padding', arguments)
+
+margin()
+    offset('margin', arguments)
+
+margin-bottom(value)
+    toRem('margin-bottom', value)
+
+offset(prop, args)
+
+    if (length(args) == 4)
+        top = args[0]
+        right = args[1]
+        bottom = args[2]
+        left = args[3]
+
+        {prop} top right bottom left
+        {prop} getRem(top) getRem(right) getRem(bottom) getRem(left)
+
+    if (length(args) == 3)
+        top = args[0]
+        x = args[1]
+        bottom = args[2]
+
+        {prop} top x bottom
+        {prop} getRem(top) getRem(x) getRem(bottom)
+
+    if (length(args) == 2)
+        y = args[0]
+        x = args[1]
+
+        {prop} y x
+        {prop} getRem(y) getRem(x)
+
+    if (length(args) == 1)
+        val = args[0]
+
+        {prop} val
+        {prop} getRem(val)
+
+selection(bg, color)
+    ::selection
+        background bg
+        color color
+
+    ::-moz-selection
+        background bg
+        color color
+
+clearfix()
+    &:after
+        content ''
+        display block
+        height 0
+        visibility hidden
+        clear both
+
+fadeOut(time)
+    visibility hidden
+    opacity 0
+    transition visibility ease-in-out time, opacity time ease-in-out
+
+fadeIn()
+    opacity 1
+    visibility visible
+
+noSelect()
+    -webkit-user-select none
+    -moz-user-select none
+    -o-user-select none
+    -ms-user-select none
+    user-select none
+
+align()
+    top 0
+    left 0
+    bottom 0
+    right 0
+    margin auto
+
+hAlign()
+    left 0
+    right 0
+    margin auto
+
+vAlign()
+    top 0
+    bottom 0
+    margin auto
+
+spriteWidth($sprite) {
+    width: $sprite[4];
+}
+
+spriteHeight($sprite) {
+    height: $sprite[5];
+}
+
+spritePosition($sprite) {
+    background-position: $sprite[2] $sprite[3];
+}
+
+spriteImage($sprite) {
+    background-image: url(../img/$sprite[8]);
+}
+
+sprite($sprite)
+    if !match('hover', selector()) && !match('active', selector())
+        spriteImage($sprite)
+    spritePosition($sprite)
+    spriteWidth($sprite)
+    spriteHeight($sprite)
+
+v-out(align = middle)
+    font-size 0
+    &:before
+        content ''
+        height 100%
+        display inline-block
+        vertical-align align
+
+v-in(align = middle)
+    font-size $rootFontSize
+    display inline-block
+    vertical-align align
+    width 100%
+
+circle($diameter)
+    width $diameter
+    height $diameter
+    border-radius $diameter
+
+dashed-underline($color = #000, $pseudo = ':after')
+    position relative
+    text-decoration none
+    &{$pseudo}
+        content ''
+        position absolute
+        width 100%
+        height 1px
+        border-bottom 1px dashed $color
+        bottom 0
+        left 0
+    &:hover
+        &{$pseudo}
+            display none
+
+table($vAlign = top)
+    display table
+    width 100%
+    table-layout fixed
+    &__left, &__right
+        display table-cell
+        vertical-align $vAlign
+
+placeholder($color)
+    &::-webkit-input-placeholder
+        color $color
+    &::-moz-placeholder
+        color $color
+    &:-moz-placeholder
+        color $color
+    &:-ms-input-placeholder
+        color $color
+
+owlNav(prevIcon, nextIcon, padding)
+    .owl-prev
+        sprite(prevIcon)
+        float left
+    .owl-next
+        sprite(nextIcon)
+        float right
+    .owl-nav
+        position absolute
+        width 100%
+        left 0
+        vAlign()
+        spriteHeight(prevIcon)
+    .owl-carousel
+        position relative
+        padding padding
+    .owl-stage-outer
+        z-index 2
+
+item(prop, value)
+    {prop} value
+    &:last-child
+        {prop} 0
+
+colsWrap(cols, xOffset, yOffset)
+    overflow hidden
+    &__cols-wrap
+        margin (-(yOffset/2))px (-(xOffset/2))px
+        font-size 0
+    &__col
+        font-size $rootFontSize
+        display inline-block
+        vertical-align top
+        padding (yOffset/2)px (xOffset/2)px
+        width (100/cols)%
+
+stick()
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+
+
+resp(full = false)
+    if full
+        width 100%
+    else
+        max-width 100%
+    height auto
