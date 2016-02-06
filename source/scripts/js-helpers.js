@@ -130,6 +130,71 @@ window.helpers = {
 
             return false;
         });
+    },
+    owl: function($node, options) {
+        var options = options || {};
+        var onInitialize;
+
+        if (options.onInitialize) {
+            onInitialize = options.onInitialize;
+            delete options.onInitialize;
+        }
+
+        return $node.addClass('owl-carousel').owlCarousel($.extend({}, {
+            items: 1,
+            onInitialize: function() {
+                if (onInitialize) onInitialize();
+
+                if ($node.children().length == 1) {
+                    $node.addClass('owl-disabled');
+                    $('body').append('<style>.owl-disabled:after {content: \'\'; width: 100%; height: 100%; position: absolute; top: 0; left: 0}</style>');
+                }
+            }
+        }, options));
+    },
+    owlTabs: function($tabs, $content) {
+        var $tab;
+        var owlTabs = this.owl($tabs, {
+            autoWidth: true,
+            margin: 40,
+            onInitialized: function() {
+                $tab = $('.owl-item', $tabs);
+
+                setTabActivity($tab, 0);
+
+                $tab.click(function() {
+                    var index = $(this).index();
+
+                   setContentActivity(index);
+
+                    return false;
+                });
+            },
+            onTranslated: function(e) {
+                var index = e.item.index;
+
+                setContentActivity(index);
+            }
+        });
+
+        var owlContent = this.owl($content, {
+            nav: false,
+            dots: false,
+            onTranslate: function(e) {
+                var index = e.item.index;
+
+                setTabActivity($tab, index);
+            }
+        });
+
+        function setContentActivity(index) {
+            owlContent.trigger('to.owl.carousel', [index, 300, true]);
+        }
+
+        function setTabActivity($tab, index) {
+            $tab.eq(index).addClass('owl-item-active');
+            $tab.not($tab.eq(index)).removeClass('owl-item-active');
+        }
     }
 };
 

@@ -17,7 +17,7 @@
   "devDependencies": {
     "jquery": "~1.12.0",
     "normalize": "./source/stylus/vendor-css/normalize.css",
-    "OwlCarousel": "~1.3.2"
+    "owl.carousel": "~2.0.0-beta.3"
   },
   "dependencies": {
     "Swiper": "swiper#~3.3.0"
