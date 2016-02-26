@@ -255,6 +255,7 @@ window.helpers = {
 
                  if (
                      !$target.hasClass('fancybox') &&
+                     !$target.parents('.fancybox').length &&
                      !$target.hasClass('fancybox-nav') &&
                      !$target.parent().hasClass('fancybox-nav') &&
                      !$target.parents('.fancybox-inner').length
